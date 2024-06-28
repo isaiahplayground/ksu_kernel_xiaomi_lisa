@@ -10,6 +10,26 @@ DEFCONFIG="lisa_defconfig"
 
 ZIPNAME="QuicksilveR-lisa-$(date '+%Y%m%d-%H%M').zip"
 
+# Telegram Integration Variables
+CHAT_ID="1865106728"
+PUBCHAT_ID="-1001865106728"
+BOT_ID="7478955642:AAGGCsWTxY9VXYrzi_I0biNuZLMMf_2DDPk"
+
+function publicinfo() {
+    curl -s -X POST "https://api.telegram.org/bot${BOT_ID}/sendMessage" \
+        -d chat_id="$PUBCHAT_ID" \
+        -d "disable_web_page_preview=true" \
+        -d "parse_mode=html" \
+        -d text="<b>Automated build started for ${DEVICE} (${CODENAME})</b>"
+}
+function sendinfo() {
+    curl -s -X POST "https://api.telegram.org/bot${BOT_ID}/sendMessage" \
+        -d chat_id="$CHAT_ID" \
+        -d "disable_web_page_preview=true" \
+        -d "parse_mode=html" \
+        -d text="<b>Laboratory Machine: Build Triggered</b>%0A<b>Docker: </b><code>$DISTRO</code>%0A<b>Build Date: </b><code>${DATE}</code>%0A<b>Device: </b><code>${DEVICE} (${CODENAME})</code>%0A<b>Kernel Version: </b><code>$(make kernelversion 2>/dev/null)</code>%0A<b>Build Type: </b><code>${TYPE}</code>%0A<b>Compiler: </b><code>${COMPILER_NAME}</code>%0A<b>Linker: </b><code>${LINKER_NAME}</code>%0A<b>Zip Name: </b><code>${KVERSION}</code>%0A<b>Branch: </b><code>$(git rev-parse --abbrev-ref HEAD)</code>%0A<b>Last Commit Details: </b><a href='${REPO_URL}/commit/${COMMIT_HASH}'>${COMMIT_HASH}</a> <code>($(git log --pretty=format:'%s' -1))</code>"
+}
+
 if test -z "$(git rev-parse --show-cdup 2>/dev/null)" &&
    head=$(git rev-parse --verify HEAD 2>/dev/null); then
 	ZIPNAME="${ZIPNAME::-4}-$(echo $head | cut -c1-8).zip"
@@ -56,6 +76,9 @@ elif ! git clone -q https://github.com/likkai/AnyKernel3 -b lisa; then
 	echo -e "\nAnyKernel3 repo not found locally and couldn't clone from GitHub! Aborting..."
 	exit 1
 fi
+
+publicinfo
+sendinfo
 cp $kernel AnyKernel3
 cp $dtb AnyKernel3/dtb
 python2 scripts/dtc/libfdt/mkdtboimg.py create AnyKernel3/dtbo.img --page_size=4096 $dtbo

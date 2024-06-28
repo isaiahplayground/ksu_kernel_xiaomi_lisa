@@ -8,7 +8,7 @@ TC_DIR="$HOME/tc/clang-r450784d"
 AK3_DIR="$HOME/AnyKernel3"
 DEFCONFIG="lisa_defconfig"
 
-ZIPNAME="QuicksilveR-lisa-$(date '+%Y%m%d-%H%M').zip"
+ZIPNAME="Quickscrap-lisa-$(date '+%Y%m%d-%H%M').zip"
 
 # Telegram Integration Variables
 CHAT_ID="-1001865106728"

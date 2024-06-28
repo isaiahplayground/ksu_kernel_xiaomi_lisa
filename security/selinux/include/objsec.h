@@ -158,7 +158,7 @@ static inline struct ipc_security_struct *selinux_ipc(
 {
 	return ipc->security + selinux_blob_sizes.lbs_ipc;
 }
-(void)
+static inline u32 current_sid(void)
 {
 	const struct task_security_struct *tsec = selinux_cred(current_cred());
 

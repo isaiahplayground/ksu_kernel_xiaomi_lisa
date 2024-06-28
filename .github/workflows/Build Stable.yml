@@ -26,7 +26,7 @@ jobs:
     - name: Download kernel source
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone https://github.com/likkai/ksu_kernel_xiaomi_lisa.git --depth=1
+        git clone https://github.com/isaiahplayground/ksu_kernel_xiaomi_lisa.git --depth=1
         
     - name: Integrate KernelSU
       run: |

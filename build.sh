@@ -11,8 +11,8 @@ DEFCONFIG="lisa_defconfig"
 ZIPNAME="QuicksilveR-lisa-$(date '+%Y%m%d-%H%M').zip"
 
 # Telegram Integration Variables
-CHAT_ID="1865106728"
-PUBCHAT_ID="-1001865106728"
+CHAT_ID="-1001865106728"
+PUBCHAT_ID="1865106728"
 BOT_ID="7478955642:AAGGCsWTxY9VXYrzi_I0biNuZLMMf_2DDPk"
 
 function publicinfo() {

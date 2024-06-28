@@ -158,10 +158,7 @@ static inline struct ipc_security_struct *selinux_ipc(
 {
 	return ipc->security + selinux_blob_sizes.lbs_ipc;
 }
-
-/*
- * get the subjective security ID of the current task
- */
+(void)
 {
 	const struct task_security_struct *tsec = selinux_cred(current_cred());
 

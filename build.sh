@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Compile script for QuicksilveR kernel
+# Compile script for Quickscrap kernel
 # Copyright (C) 2020-2021 Adithya R.
 
 SECONDS=0 # builtin bash timer
@@ -8,7 +8,36 @@ TC_DIR="$HOME/tc/clang-r450784d"
 AK3_DIR="$HOME/AnyKernel3"
 DEFCONFIG="lisa_defconfig"
 
-ZIPNAME="Quickscrap-lisa-$(date '+%Y%m%d-%H%M').zip"
+ZIPNAME="Quickscrap-lisa_$(date '+%Y%m%d-%H%M').zip"
+
+# Main Variables
+KDIR=$(pwd)
+DATE=$(date +%d-%h-%Y-%R:%S | sed "s/:/./g")
+START=$(date +"%s")
+TCDIR=$(pwd)/toolchains/clang
+IMAGE=$(pwd)/out/arch/arm64/boot/Image
+
+# Naming Variables
+KNAME="Quickscrap KernelSU"
+VERSION="v1.0"
+CODENAME="lisa"
+MIN_HEAD=$(git rev-parse HEAD)
+export KVERSION="${KNAME}-${VERSION}-${CODENAME}-$(echo ${MIN_HEAD:0:8})"
+
+# GitHub Variables
+export COMMIT_HASH=$(git rev-parse --short HEAD)
+export REPO_URL="https://github.com/isaiahplayground/ksu_kernel_xiaomi_lisa"
+
+# Build Information
+LINKER=ld.lld
+export COMPILER_NAME="$(${TCDIR}/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
+export LINKER_NAME="$("${TCDIR}"/bin/${LINKER} --version | head -n 1 | sed 's/(compatible with [^)]*)//' | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
+export KBUILD_BUILD_USER=isaiahscape
+export KBUILD_BUILD_HOST=runner
+export DEVICE="Xiaomi 11 Lite 5G NE"
+export CODENAME="lisa"
+export TYPE="Stable"
+export DISTRO=$(source /etc/os-release && echo "${NAME}")
 
 # Telegram Integration Variables
 CHAT_ID="-1001865106728"
@@ -28,6 +57,23 @@ function sendinfo() {
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
         -d text="<b>Laboratory Machine: Build Triggered</b>%0A<b>Docker: </b><code>$DISTRO</code>%0A<b>Build Date: </b><code>${DATE}</code>%0A<b>Device: </b><code>${DEVICE} (${CODENAME})</code>%0A<b>Kernel Version: </b><code>$(make kernelversion 2>/dev/null)</code>%0A<b>Build Type: </b><code>${TYPE}</code>%0A<b>Compiler: </b><code>${COMPILER_NAME}</code>%0A<b>Linker: </b><code>${LINKER_NAME}</code>%0A<b>Zip Name: </b><code>${KVERSION}</code>%0A<b>Branch: </b><code>$(git rev-parse --abbrev-ref HEAD)</code>%0A<b>Last Commit Details: </b><a href='${REPO_URL}/commit/${COMMIT_HASH}'>${COMMIT_HASH}</a> <code>($(git log --pretty=format:'%s' -1))</code>"
+}
+function push() {
+    cd AnyKernel
+    ZIP=$(echo *.zip)
+    curl -F document=@$ZIP "https://api.telegram.org/bot${BOT_ID}/sendDocument" \
+        -F chat_id="$CHAT_ID" \
+        -F "disable_web_page_preview=true" \
+        -F "parse_mode=html" \
+        -F caption="Build took $(($DIFF / 60)) minutes and $(($DIFF % 60)) seconds. | <b>Compiled with: ${COMPILER_NAME} + ${LINKER_NAME}.</b>"
+}
+function finerr() {
+    curl -s -X POST "https://api.telegram.org/bot${BOT_ID}/sendMessage" \
+        -d chat_id="$CHAT_ID" \
+        -d "disable_web_page_preview=true" \
+        -d "parse_mode=html" \
+        -d text="Compilation failed, please check build logs for errors."
+    exit 1
 }
 
 if test -z "$(git rev-parse --show-cdup 2>/dev/null)" &&

@@ -569,8 +569,6 @@ size_t ring_buffer_nr_dirty_pages(struct ring_buffer *buffer, int cpu)
 	return cnt - read;
 }
 
-<<<<<<< HEAD
-=======
 static __always_inline bool full_hit(struct ring_buffer *buffer, int cpu, int full)
 {
 	struct ring_buffer_per_cpu *cpu_buffer = buffer->buffers[cpu];
@@ -591,7 +589,6 @@ static __always_inline bool full_hit(struct ring_buffer *buffer, int cpu, int fu
 	return (dirty * 100) >= (full * nr_pages);
 }
 
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 /*
  * rb_wake_up_waiters - wake up tasks waiting for ring buffer input
  *
@@ -748,16 +745,10 @@ __poll_t ring_buffer_poll_wait(struct ring_buffer *buffer, int cpu,
 	struct ring_buffer_per_cpu *cpu_buffer;
 	struct rb_irq_work *rbwork;
 
-<<<<<<< HEAD
-	if (cpu == RING_BUFFER_ALL_CPUS)
-		work = &buffer->irq_work;
-	else {
-=======
 	if (cpu == RING_BUFFER_ALL_CPUS) {
 		rbwork = &buffer->irq_work;
 		full = 0;
 	} else {
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 		if (!cpumask_test_cpu(cpu, buffer->cpumask))
 			return EPOLLERR;
 
@@ -765,10 +756,6 @@ __poll_t ring_buffer_poll_wait(struct ring_buffer *buffer, int cpu,
 		rbwork = &cpu_buffer->irq_work;
 	}
 
-<<<<<<< HEAD
-	poll_wait(filp, &work->waiters, poll_table);
-	work->waiters_pending = true;
-=======
 	if (full) {
 		unsigned long flags;
 
@@ -801,7 +788,6 @@ __poll_t ring_buffer_poll_wait(struct ring_buffer *buffer, int cpu,
 	poll_wait(filp, &rbwork->waiters, poll_table);
 	rbwork->waiters_pending = true;
 
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 	/*
 	 * There's a tight race between setting the waiters_pending and
 	 * checking if the ring buffer is empty.  Once the waiters_pending bit

@@ -53,21 +53,6 @@ struct llcc_slice_desc {
 
 /**
  * llcc_slice_config - Data associated with the llcc slice
-<<<<<<< HEAD
- * @usecase_id: usecase id for which the llcc slice is used
- * @slice_id: llcc slice id assigned to each slice
- * @max_cap: maximum capacity of the llcc slice
- * @priority: priority of the llcc slice
- * @fixed_size: whether the llcc slice can grow beyond its size
- * @bonus_ways: bonus ways associated with llcc slice
- * @res_ways: reserved ways associated with llcc slice
- * @cache_mode: mode of the llcc slice
- * @probe_target_ways: Probe only reserved and bonus ways on a cache miss
- * @dis_icap_alloc: Disable capacity based allocation
- * @write_scid_en: Enables write cache support for a given scid.
- * @retain_on_pc: Retain through power collapse
- * @activate_on_init: activate the slice on init
-=======
  * @usecase_id: Unique id for the client's use case
  * @slice_id: llcc slice id for each client
  * @max_cap: The maximum capacity of the cache slice provided in KB
@@ -89,7 +74,6 @@ struct llcc_slice_desc {
  *               then the ways assigned to this client are not flushed on power
  *               collapse.
  * @activate_on_init: Activate the slice immediately after it is programmed
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
  */
 struct llcc_slice_config {
 	u32 usecase_id;

@@ -14,10 +14,7 @@
  * @req_node: entry in list of requests for the particular @node
  * @node: the interconnect node to which this constraint applies
  * @dev: reference to the device that sets the constraints
-<<<<<<< HEAD
-=======
  * @enabled: indicates whether the path with this request is enabled
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
  * @tag: path tag (optional)
  * @avg_bw: an integer describing the average bandwidth in kBps
  * @peak_bw: an integer describing the peak bandwidth in kBps
@@ -26,10 +23,7 @@ struct icc_req {
 	struct hlist_node req_node;
 	struct icc_node *node;
 	struct device *dev;
-<<<<<<< HEAD
-=======
 	bool enabled;
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 	u32 tag;
 	u32 avg_bw;
 	u32 peak_bw;
@@ -37,18 +31,10 @@ struct icc_req {
 
 /**
  * struct icc_path - interconnect path structure
-<<<<<<< HEAD
- * @name: a string name of the path (useful for ftrace)
-=======
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
  * @num_nodes: number of hops (nodes)
  * @reqs: array of the requests applicable to this path of nodes
  */
 struct icc_path {
-<<<<<<< HEAD
-	const char *name;
-=======
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 	size_t num_nodes;
 	struct icc_req reqs[];
 };

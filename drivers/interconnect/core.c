@@ -22,12 +22,6 @@
 
 #include "internal.h"
 
-<<<<<<< HEAD
-#define CREATE_TRACE_POINTS
-#include "trace.h"
-
-=======
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 static DEFINE_IDR(icc_idr);
 static LIST_HEAD(icc_providers);
 static DEFINE_MUTEX(icc_lock);

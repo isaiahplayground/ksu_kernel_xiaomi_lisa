@@ -25,10 +25,7 @@ struct virtrng_info {
 	/* data transfer */
 	struct completion have_data;
 	unsigned int data_avail;
-<<<<<<< HEAD
-=======
 	unsigned int data_idx;
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 	/* minimal size returned by rng_buffer_size() */
 #if SMP_CACHE_BYTES < 32
 	u8 data[32];
@@ -50,13 +47,6 @@ static void random_recv_done(struct virtqueue *vq)
 	complete(&vi->have_data);
 }
 
-<<<<<<< HEAD
-/* The host will fill any buffer we give it with sweet, sweet randomness. */
-static void register_buffer(struct virtrng_info *vi)
-{
-	struct scatterlist sg;
-
-=======
 static void request_entropy(struct virtrng_info *vi)
 {
 	struct scatterlist sg;
@@ -64,7 +54,6 @@ static void request_entropy(struct virtrng_info *vi)
 	reinit_completion(&vi->have_data);
 	vi->data_idx = 0;
 
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 	sg_init_one(&sg, vi->data, sizeof(vi->data));
 
 	/* There should always be room for one buffer. */
@@ -95,12 +84,6 @@ static int virtio_read(struct hwrng *rng, void *buf, size_t size, bool wait)
 	if (vi->hwrng_removed)
 		return -ENODEV;
 
-<<<<<<< HEAD
-	if (!vi->busy) {
-		vi->busy = true;
-		reinit_completion(&vi->have_data);
-		register_buffer(vi);
-=======
 	read = 0;
 
 	/* copy available data */
@@ -108,31 +91,11 @@ static int virtio_read(struct hwrng *rng, void *buf, size_t size, bool wait)
 		chunk = copy_data(vi, buf, size);
 		size -= chunk;
 		read += chunk;
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 	}
 
 	if (!wait)
 		return read;
 
-<<<<<<< HEAD
-	read = 0;
-	while (size != 0) {
-		ret = wait_for_completion_killable(&vi->have_data);
-		if (ret < 0)
-			return ret;
-
-		chunk = min_t(unsigned int, size, vi->data_avail);
-		memcpy(buf + read, vi->data, chunk);
-		read += chunk;
-		size -= chunk;
-		vi->data_avail = 0;
-
-		if (size != 0) {
-			reinit_completion(&vi->have_data);
-			register_buffer(vi);
-		}
-	}
-=======
 	/* We have already copied available entropy,
 	 * so either size is 0 or data_avail is 0
 	 */
@@ -146,7 +109,6 @@ static int virtio_read(struct hwrng *rng, void *buf, size_t size, bool wait)
 		 */
 		if (vi->data_avail == 0)
 			return read;
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 
 		chunk = copy_data(vi, buf + read, size);
 		size -= chunk;

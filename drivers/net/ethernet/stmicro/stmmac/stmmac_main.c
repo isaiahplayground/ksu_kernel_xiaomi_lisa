@@ -3760,14 +3760,8 @@ read_again:
 				goto drain_data;
 			}
 
-<<<<<<< HEAD
-			dma_sync_single_for_cpu(GET_MEM_PDEV_DEV,
-						buf->addr, len,
-						DMA_FROM_DEVICE);
-=======
 			dma_sync_single_for_cpu(priv->device, buf->addr,
 						buf1_len, DMA_FROM_DEVICE);
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 			skb_copy_to_linear_data(skb, page_address(buf->page),
 						buf1_len);
 			skb_put(skb, buf1_len);
@@ -3775,20 +3769,9 @@ read_again:
 			/* Data payload copied into SKB, page ready for recycle */
 			page_pool_recycle_direct(rx_q->page_pool, buf->page);
 			buf->page = NULL;
-<<<<<<< HEAD
-		} else {
-			unsigned int buf_len = len - prev_len;
-
-			if (likely(status & rx_not_ls))
-				buf_len = priv->dma_buf_sz;
-
-			dma_sync_single_for_cpu(GET_MEM_PDEV_DEV, buf->addr,
-						buf_len, DMA_FROM_DEVICE);
-=======
 		} else if (buf1_len) {
 			dma_sync_single_for_cpu(priv->device, buf->addr,
 						buf1_len, DMA_FROM_DEVICE);
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 			skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
 					buf->page, 0, buf1_len,
 					priv->dma_buf_sz);

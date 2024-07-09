@@ -623,15 +623,9 @@ struct hid_device {							/* device report descriptor */
 	struct list_head debug_list;
 	spinlock_t  debug_list_lock;
 	wait_queue_head_t debug_wait;
-<<<<<<< HEAD
-
-	ANDROID_KABI_RESERVE(1);
-	ANDROID_KABI_RESERVE(2);
-=======
 	struct kref			ref;
 
 	unsigned int id;						/* system unique id */
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 };
 
 void hiddev_free(struct kref *ref);

@@ -423,10 +423,6 @@ int nf_conntrack_sctp_packet(struct nf_conn *ct,
 			/* (D) vtag must be same as init_vtag as found in INIT_ACK */
 			if (sh->vtag != ct->proto.sctp.vtag[dir])
 				goto out_unlock;
-<<<<<<< HEAD
-		} else if (sch->type == SCTP_CID_HEARTBEAT ||
-			   sch->type == SCTP_CID_HEARTBEAT_ACK) {
-=======
 		} else if (sch->type == SCTP_CID_COOKIE_ACK) {
 			ct->proto.sctp.init[dir] = 0;
 			ct->proto.sctp.init[!dir] = 0;
@@ -446,7 +442,6 @@ int nf_conntrack_sctp_packet(struct nf_conn *ct,
 				ct->proto.sctp.flags &= ~SCTP_FLAG_HEARTBEAT_VTAG_FAILED;
 			}
 		} else if (sch->type == SCTP_CID_HEARTBEAT_ACK) {
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 			if (ct->proto.sctp.vtag[dir] == 0) {
 				pr_debug("Setting vtag %x for dir %d\n",
 					 sh->vtag, dir);
@@ -482,8 +477,6 @@ int nf_conntrack_sctp_packet(struct nf_conn *ct,
 
 			pr_debug("Setting vtag %x for dir %d\n", ih->init_tag, !dir);
 			ct->proto.sctp.vtag[!dir] = ih->init_tag;
-<<<<<<< HEAD
-=======
 
 			/* don't renew timeout on init retransmit so
 			 * port reuse by client or NAT middlebox cannot
@@ -511,7 +504,6 @@ int nf_conntrack_sctp_packet(struct nf_conn *ct,
 
 			pr_debug("Setting vtag %x for dir %d\n", ih->init_tag, !dir);
 			ct->proto.sctp.vtag[!dir] = ih->init_tag;
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 		}
 
 		ct->proto.sctp.state = new_state;

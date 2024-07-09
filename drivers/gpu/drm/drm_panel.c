@@ -56,13 +56,9 @@ void drm_panel_init(struct drm_panel *panel, struct device *dev,
 		    const struct drm_panel_funcs *funcs, int connector_type)
 {
 	INIT_LIST_HEAD(&panel->list);
-<<<<<<< HEAD
-	BLOCKING_INIT_NOTIFIER_HEAD(&panel->nh);
-=======
 	panel->dev = dev;
 	panel->funcs = funcs;
 	panel->connector_type = connector_type;
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 }
 EXPORT_SYMBOL(drm_panel_init);
 

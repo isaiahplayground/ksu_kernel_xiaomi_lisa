@@ -850,11 +850,7 @@ EXPORT_SYMBOL(mmc_remove_host);
  */
 void mmc_free_host(struct mmc_host *host)
 {
-<<<<<<< HEAD
-	mmc_crypto_free_host(host);
-=======
 	cancel_delayed_work_sync(&host->detect);
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 	mmc_pwrseq_free(host);
 	put_device(&host->class_dev);
 }

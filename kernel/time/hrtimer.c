@@ -2137,17 +2137,6 @@ static void migrate_hrtimer_list(struct hrtimer_clock_base *old_base,
 	}
 }
 
-<<<<<<< HEAD
-static void __migrate_hrtimers(unsigned int scpu, bool remove_pinned)
-{
-	struct hrtimer_cpu_base *old_base, *new_base;
-	unsigned long flags;
-	int i;
-
-	local_irq_save(flags);
-	old_base = &per_cpu(hrtimer_bases, scpu);
-	new_base = this_cpu_ptr(&hrtimer_bases);
-=======
 int hrtimers_cpu_dying(unsigned int dying_cpu)
 {
 	struct hrtimer_cpu_base *old_base, *new_base;
@@ -2158,7 +2147,6 @@ int hrtimers_cpu_dying(unsigned int dying_cpu)
 	old_base = this_cpu_ptr(&hrtimer_bases);
 	new_base = &per_cpu(hrtimer_bases, ncpu);
 
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 	/*
 	 * The caller is globally serialized and nobody else
 	 * takes two locks at once, deadlock is not possible.
@@ -2183,27 +2171,6 @@ int hrtimers_cpu_dying(unsigned int dying_cpu)
 	old_base->online = 0;
 	raw_spin_unlock(&old_base->lock);
 
-<<<<<<< HEAD
-	/* Check, if we got expired work to do */
-	__hrtimer_peek_ahead_timers();
-	local_irq_restore(flags);
-}
-
-int hrtimers_dead_cpu(unsigned int scpu)
-{
-	BUG_ON(cpu_online(scpu));
-	tick_cancel_sched_timer(scpu);
-
-	/*
-	 * this BH disable ensures that raise_softirq_irqoff() does
-	 * not wakeup ksoftirqd (and acquire the pi-lock) while
-	 * holding the cpu_base lock
-	 */
-	local_bh_disable();
-	__migrate_hrtimers(scpu, true);
-	local_bh_enable();
-=======
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 	return 0;
 }
 

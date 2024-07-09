@@ -556,11 +556,7 @@ static int verity_verify_io(struct dm_verity_io *io)
 				return -EIO;
 			}
 			if (verity_handle_err(v, DM_VERITY_BLOCK_TYPE_DATA,
-<<<<<<< HEAD
-					   cur_block))
-=======
 					      cur_block))
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 				return -EIO;
 		}
 	}

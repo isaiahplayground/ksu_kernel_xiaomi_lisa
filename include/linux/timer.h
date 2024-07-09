@@ -192,7 +192,9 @@ extern void timer_quiesce_cpu(void *cpup);
 extern void add_timer(struct timer_list *timer);
 
 extern int try_to_del_timer_sync(struct timer_list *timer);
+extern int timer_delete_sync(struct timer_list *timer);
 
+<<<<<<< HEAD
 extern struct timer_base timer_base_deferrable;
 
 #if defined(CONFIG_SMP) || defined(CONFIG_PREEMPT_RT)
@@ -200,6 +202,20 @@ extern struct timer_base timer_base_deferrable;
 #else
 # define del_timer_sync(t)		del_timer(t)
 #endif
+=======
+/**
+ * del_timer_sync - Delete a pending timer and wait for a running callback
+ * @timer:	The timer to be deleted
+ *
+ * See timer_delete_sync() for detailed explanation.
+ *
+ * Do not use in new code. Use timer_delete_sync() instead.
+ */
+static inline int del_timer_sync(struct timer_list *timer)
+{
+	return timer_delete_sync(timer);
+}
+>>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 
 #define del_singleshot_timer_sync(t) del_timer_sync(t)
 

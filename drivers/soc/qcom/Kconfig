@@ -164,6 +164,7 @@ config QCOM_LLCC
 	select REGMAP_MMIO
 	help
 	  Qualcomm Technologies, Inc. platform specific
+<<<<<<< HEAD
 	  Last Level Cache Controller(LLCC) driver. This provides interfaces
 	  to clients that use the LLCC. Say yes here to enable LLCC slice
 	  driver.
@@ -238,6 +239,11 @@ config QCOM_SDM845_LLCC
 	  Say yes here to enable the LLCC driver for SDM845. This provides
 	  data required to configure LLCC so that clients can start using the
 	  LLCC slices.
+=======
+	  Last Level Cache Controller(LLCC) driver for platforms such as,
+	  SDM845. This provides interfaces to clients that use the LLCC.
+	  Say yes here to enable LLCC slice driver.
+>>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 
 config QCOM_LLCC_PERFMON
 	tristate "Qualcomm Technologies, Inc. LLCC Perfmon driver"

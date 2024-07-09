@@ -43,6 +43,7 @@ obj-$(CONFIG_QCOM_IPCC) += qcom_ipcc.o
 obj-$(CONFIG_QCOM_RIMPS) += qcom_rimps.o
 obj-$(CONFIG_QCOM_RUN_QUEUE_STATS) += rq_stats.o
 obj-$(CONFIG_QCOM_APR) += apr.o
+<<<<<<< HEAD
 obj-$(CONFIG_QCOM_LLCC) += qcom_llcc.o
 qcom_llcc-y += llcc-slice.o llcc-tcm.o
 obj-$(CONFIG_QCOM_LAHAINA_LLCC) += llcc-lahaina.o
@@ -63,6 +64,9 @@ obj-$(CONFIG_QCOM_SMCINVOKE) += smcinvoke.o
 obj-$(CONFIG_QCOM_MICRODUMP) += microdump_collector.o
 obj-$(CONFIG_QCOM_SDM845_LLCC) += llcc-sdm845.o
 obj-$(CONFIG_QCOM_LLCC_PERFMON) += llcc_perfmon.o
+=======
+obj-$(CONFIG_QCOM_LLCC) += llcc-qcom.o
+>>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 obj-$(CONFIG_QCOM_RPMHPD) += rpmhpd.o
 obj-$(CONFIG_QCOM_RPMPD) += rpmpd.o
 obj-$(CONFIG_QMP_DEBUGFS_CLIENT) += qmp-debugfs-client.o

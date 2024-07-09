@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0
 /*
-<<<<<<< HEAD:drivers/soc/qcom/llcc-slice.c
- * Copyright (c) 2017-2021, The Linux Foundation. All rights reserved.
-=======
  * Copyright (c) 2017-2019, The Linux Foundation. All rights reserved.
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe:drivers/soc/qcom/llcc-qcom.c
  *
  */
 

@@ -570,17 +570,8 @@ static ssize_t dwc3_testmode_write(struct file *file,
 	struct dwc3		*dwc = s->private;
 	unsigned long		flags;
 	u32			testmode = 0;
-<<<<<<< HEAD
-	char			buf[32] = {};
-
-	if (atomic_read(&dwc->in_lpm)) {
-		seq_puts(s, "USB device is powered off\n");
-		return 0;
-	}
-=======
 	char			buf[32];
 	int			ret;
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 
 	if (copy_from_user(&buf, ubuf, min_t(size_t, sizeof(buf) - 1, count)))
 		return -EFAULT;

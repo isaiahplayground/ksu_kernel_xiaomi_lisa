@@ -386,16 +386,6 @@ static unsigned int sdhci_sprd_get_ro(struct sdhci_host *host)
 	return 0;
 }
 
-<<<<<<< HEAD
-static void sdhci_sprd_request_done(struct sdhci_host *host,
-				    struct mmc_request *mrq)
-{
-	/* Validate if the request was from software queue firstly. */
-	if (mmc_hsq_finalize_request(host->mmc, mrq))
-		return;
-
-	 mmc_request_done(host->mmc, mrq);
-=======
 static void sdhci_sprd_set_power(struct sdhci_host *host, unsigned char mode,
 				 unsigned short vdd)
 {
@@ -414,7 +404,6 @@ static void sdhci_sprd_set_power(struct sdhci_host *host, unsigned char mode,
 		mmc_regulator_set_ocr(host->mmc, mmc->supply.vmmc, vdd);
 		break;
 	}
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 }
 
 static struct sdhci_ops sdhci_sprd_ops = {

@@ -1791,11 +1791,8 @@ static void qcom_glink_rpdev_release(struct device *dev)
 {
 	struct rpmsg_device *rpdev = to_rpmsg_device(dev);
 
-<<<<<<< HEAD
-=======
 	channel->rpdev = NULL;
 	kfree(rpdev->driver_override);
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 	kfree(rpdev);
 }
 

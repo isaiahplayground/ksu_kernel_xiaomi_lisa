@@ -2626,11 +2626,6 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 	dwc->b_suspend = false;
 	dwc3_notify_event(dwc, DWC3_CONTROLLER_NOTIFY_OTG_EVENT, 0);
 
-<<<<<<< HEAD
-	ret = dwc3_gadget_run_stop_util(dwc);
-	spin_unlock_irqrestore(&dwc->lock, flags);
-	if (!is_on && ret == -ETIMEDOUT) {
-=======
 	/*
 	 * Check the return value for successful resume, or error.  For a
 	 * successful resume, the DWC3 runtime PM resume routine will handle
@@ -2652,7 +2647,6 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 	if (!is_on) {
 		ret = dwc3_gadget_soft_disconnect(dwc);
 	} else {
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 		/*
 		 * If we fail to stop the controller then mark it as an error
 		 * event since it can lead the controller to go into an unknown
@@ -4372,17 +4366,6 @@ static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
 	u32 reg;
 	ktime_t start_time;
 
-<<<<<<< HEAD
-	if (!evt)
-		return IRQ_NONE;
-
-	dwc = evt->dwc;
-	start_time = ktime_get();
-	atomic_inc(&dwc->irq_cnt);
-
-	/* controller reset is still pending */
-	if (dwc->err_evt_seen)
-=======
 	if (pm_runtime_suspended(dwc->dev)) {
 		dwc->pending_events = true;
 		/*
@@ -4392,7 +4375,6 @@ static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
 		 */
 		pm_runtime_get(dwc->dev);
 		disable_irq_nosync(dwc->irq_gadget);
->>>>>>> 659c7ae2a7158a0998e82d066641b8b2dcbc5cbe
 		return IRQ_HANDLED;
 
 	/*
